@@ -123,6 +123,11 @@ defmodule Plug.Adapters.Cowboy2.Conn do
     end)
   end
 
+  def push(req, path, headers) do
+    headers = to_headers_map(headers)
+    :cowboy_req.push(path, headers, req)
+  end
+
   ## Multipart
 
   defp parse_multipart({:ok, headers, req}, limit, opts, headers_opts, acc, callback) when limit >= 0 do
